@@ -36,7 +36,7 @@ export class AppComponent {
 
     this.configService.updateConfig({
       sidenav: {
-        title: "POS",
+        title: "SellHub",
         imageUrl: "/assets/img/demo/logo.svg",
         showCollapsePin: true,
       },

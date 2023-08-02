@@ -116,7 +116,7 @@ export class ToolbarUserDropdownComponent implements OnInit {
         private popoverRef: PopoverRef<ToolbarUserDropdownComponent>) { }
 
   ngOnInit() {
-    this.username = 'Adrián M Valencia' //localStorage.getItem('username');
+    this.username = 'ADMIN' //localStorage.getItem('username');
   }
 
   setStatus(status: OnlineStatus) {
