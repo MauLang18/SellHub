@@ -1,3 +1,4 @@
+import icCategory from '@iconify/icons-ic/twotone-category';
 import { Component, Inject, LOCALE_ID, Renderer2 } from '@angular/core';
 import { ConfigService } from '../@vex/services/config.service';
 import { Settings } from 'luxon';
@@ -66,6 +67,12 @@ export class AppComponent {
         label: 'Estadísticas',
         route: 'estadisticas',
         icon: icDashboard
+      },
+      {
+        type: 'link',
+        label: 'Categorias',
+        route: 'categorias',
+        icon: icCategory
       }
     ];
   }

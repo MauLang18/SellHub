@@ -13,6 +13,13 @@ const childrenRoutes: VexRoutes = [
     }
   },
   {
+    path: 'categorias',
+    loadChildren: () => import('./pages/categoria/categoria.module').then(m => m.CategoriaModule),
+    data:{
+      containerEnabled: true
+    }
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }
