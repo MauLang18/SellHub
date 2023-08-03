@@ -7,8 +7,9 @@ import { CategoriaService } from "src/app/services/categoria.service";
 import { componentSettings } from "./categoria-list-config";
 import { CategoriaApi } from "src/app/responses/categoria/categoria.responses";
 import { DatesFilter } from "@shared/functions/actions";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { CategoriaManageComponent } from "../categoria-manage/categoria-manage.component";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "vex-categoria-list",
@@ -29,21 +30,6 @@ export class CategoriaListComponent implements OnInit {
 
   ngOnInit(): void {
     this.component = componentSettings;
-  }
-
-  rowClick(e: any) {
-    let action = e.action;
-    let categoria = e.row;
-
-    switch (action) {
-      case "edit":
-        this.CategoriaEdit(categoria);
-        break;
-      case "remove":
-        this.CategoriaRemove(categoria);
-        break;
-    }
-    return false;
   }
 
   setData(data: any = null) {
@@ -80,26 +66,80 @@ export class CategoriaListComponent implements OnInit {
       inputs.stateFilter = this.component.filters.stateFilter;
     }
 
-    if(this.component.filters.startDate != "" && this.component.filters.endDate != "") {
-      inputs.startDate = this.component.filters.startDate
-      inputs.endDate = this.component.filters.endDate
+    if (
+      this.component.filters.startDate != "" &&
+      this.component.filters.endDate != ""
+    ) {
+      inputs.startDate = this.component.filters.startDate;
+      inputs.endDate = this.component.filters.endDate;
     }
 
     this.component.getInputs = inputs;
   }
 
   openDialogRegister() {
-    this._dialog.open(CategoriaManageComponent, {
-      disableClose: true,
-      width: '400px'
-    }).afterClosed().subscribe((resp) => {
-      if(resp){
-        this.formatGetInputs()
-      }
-    })
+    this._dialog
+      .open(CategoriaManageComponent, {
+        disableClose: true,
+        width: "400px",
+      })
+      .afterClosed()
+      .subscribe((resp) => {
+        if (resp) {
+          this.formatGetInputs();
+        }
+      });
   }
 
-  CategoriaEdit(row: CategoriaApi) {}
+  rowClick(e: any) {
+    let action = e.action;
+    let categoria = e.row;
 
-  CategoriaRemove(categoria: any) {}
+    switch (action) {
+      case "edit":
+        this.CategoriaEdit(categoria);
+        break;
+      case "remove":
+        this.CategoriaRemove(categoria);
+        break;
+    }
+    return false;
+  }
+
+  CategoriaEdit(row: CategoriaApi) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = row;
+
+    let dialogRef = this._dialog.open(CategoriaManageComponent, {
+      data: dialogConfig,
+      disableClose: true,
+      width: "400px",
+    });
+    dialogRef.afterClosed().subscribe((resp) => {
+      if (resp) {
+        this.formatGetInputs();
+      }
+    });
+  }
+
+  CategoriaRemove(categoria: any) {
+    Swal.fire({
+      title: `¿Realemnte deseas eliminar la categoría ${categoria.nombre}?`,
+      text: "Se borrará de forma permanente!",
+      icon: "warning",
+      showCancelButton: true,
+      focusCancel: true,
+      confirmButtonColor: "rgb(210,155,253)",
+      cancelButtonColor: "rgb(79,109,253)",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      width: 430,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._categoriaService
+          .CategoriaRemove(categoria.pkTblPosCategoria)
+          .subscribe(() => this.formatGetInputs());
+      }
+    });
+  }
 }

@@ -36,7 +36,24 @@ export class CategoriaManageComponent implements OnInit {
     this.initForm();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.data != null) {
+      this.CategoriaById(this.data.data.pkTblPosCategoria);
+    }
+  }
+
+  CategoriaById(PkTblPosCategoria: number): void {
+    this._categoriaService
+      .CategoriaById(PkTblPosCategoria)
+      .subscribe((resp) => {
+        this.form.reset({
+          pkTblPosCategoria: resp.pkTblPosCategoria,
+          nombre: resp.nombre,
+          descripcion: resp.descripcion,
+          estado: resp.estado,
+        });
+      });
+  }
 
   CategoriaSave(): void {
     if (this.form.invalid) {
@@ -67,5 +84,16 @@ export class CategoriaManageComponent implements OnInit {
       });
   }
 
-  CategoriaEdit(pkTblPosCategoria: number): void {}
+  CategoriaEdit(pkTblPosCategoria: number): void {
+    this._categoriaService
+      .CategoriaEdit(pkTblPosCategoria, this.form.value)
+      .subscribe((resp) => {
+        if (resp.isSuccess) {
+          this._alert.success("Excelente", resp.message);
+          this._dialogRef.close(true);
+        } else {
+          this._alert.warn("Atención", resp.message);
+        }
+      });
+  }
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AlertService } from "@shared/services/alert.service";
-import { CategoriaApi } from "../responses/categoria/categoria.responses";
+import { Categoria, CategoriaApi } from "../responses/categoria/categoria.responses";
 import { environment as env } from "src/environments/environment";
 import { endpoints } from "@shared/apis/endpoints";
 import { ListCategoriaRequest } from "../requests/categoria/list-categoria.request";
@@ -52,10 +52,46 @@ export class CategoriaService {
 
   CategoriaRegister(categoria: categoriaRequest): Observable<ApiResponse> {
     const requestUrl = `${env.api}${endpoints.REGISTER_CATEGORIA}`;
+
     return this._http.post(requestUrl, categoria).pipe(
       map((resp: ApiResponse) => {
-        return resp
+        return resp;
       })
-    )
+    );
+  }
+
+  CategoriaById(pkTblPosCategoria: number): Observable<Categoria> {
+    const requestUrl = `${env.api}${endpoints.CATEGORIA_BY_ID}${pkTblPosCategoria}`;
+
+    return this._http.get(requestUrl).pipe(
+      map((resp: ApiResponse) => {
+        return resp.data;
+      })
+    );
+  }
+
+  CategoriaEdit(
+    pkTblPosCategoria: number,
+    categoria: categoriaRequest
+  ): Observable<ApiResponse> {
+    const requestUrl = `${env.api}${endpoints.EDIT_CATEGORIA}${pkTblPosCategoria}`;
+
+    return this._http.put(requestUrl, categoria).pipe(
+      map((resp: ApiResponse) => {
+        return resp;
+      })
+    );
+  }
+
+  CategoriaRemove(pkTblPosCategoria: number): Observable<void> {
+    const requestUrl = `${env.api}${endpoints.REMOVE_CATEGORIA}${pkTblPosCategoria}`;
+
+    return this._http.put(requestUrl, "").pipe(
+      map((resp: ApiResponse) => {
+        if (resp.isSuccess) {
+          this._alert.success("Excelente", resp.message);
+        }
+      })
+    );
   }
 }

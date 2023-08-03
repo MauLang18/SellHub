@@ -1,10 +1,10 @@
 export interface Categoria {
-  PkTblPosCategoria: number
-  Nombre: string
-  Descripcion: string
-  Fechacreacionauditoria : Date
-  Estado: number
-  EstadoCategoria: string
+  pkTblPosCategoria: number
+  nombre: string
+  descripcion: string
+  fechacreacionauditoria : Date
+  estado: number
+  estadoCategoria: string
 }
 
 export interface CategoriaApi {
