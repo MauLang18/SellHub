@@ -7,7 +7,7 @@
           @scaleIn
           [icon]="component.icCategory"
           class="hidden sm:block"></ic-icon>
-        <span @fadeInRight class="ml-4 block"> Gestion de Categorias</span>
+        <span @fadeInRight class="ml-4 block"> Gestión de Categorías</span>
       </h2>
 
       <div class="flex items-center justify-end w-full">
@@ -37,6 +37,9 @@
         <vex-list-table-menu
           class="hidden sm:block mr-6"
           [currentCategory]="component.getInputs.stateFilter"
+          buttonShow="true"
+          buttonLabel="AGREGAR"
+          (buttonClick)="openDialogRegister()"
           (filterChange)="setData($event)"
           [items]="component.menuItems"></vex-list-table-menu>
 

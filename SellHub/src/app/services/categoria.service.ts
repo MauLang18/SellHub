@@ -7,6 +7,8 @@ import { endpoints } from "@shared/apis/endpoints";
 import { ListCategoriaRequest } from "../requests/categoria/list-categoria.request";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { categoriaRequest } from "../requests/categoria/categoria.request";
+import { ApiResponse } from "../commons/response.interface";
 
 @Injectable({
   providedIn: "root",
@@ -46,5 +48,14 @@ export class CategoriaService {
         return data;
       })
     );
+  }
+
+  CategoriaRegister(categoria: categoriaRequest): Observable<ApiResponse> {
+    const requestUrl = `${env.api}${endpoints.REGISTER_CATEGORIA}`;
+    return this._http.post(requestUrl, categoria).pipe(
+      map((resp: ApiResponse) => {
+        return resp
+      })
+    )
   }
 }
