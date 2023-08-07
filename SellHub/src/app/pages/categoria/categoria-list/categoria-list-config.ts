@@ -1,4 +1,3 @@
-import { TableColumn } from "src/@vex/interfaces/table-column.interface";
 import { Categoria } from "src/app/responses/categoria/categoria.responses";
 import icCategory from "@iconify/icons-ic/twotone-category";
 import { ListTableMenu } from "src/app/commons/list-table-menu.interface";
@@ -6,6 +5,7 @@ import icViewHeadline from "@iconify/icons-ic/twotone-view-headline";
 import icLabel from "@iconify/icons-ic/twotone-label";
 import icCalendarMonth from "@iconify/icons-ic/twotone-calendar-today";
 import { GenericValidators } from "@shared/validators/generic-validators";
+import { TableColumn } from "src/app/core/interface/list-table.interface";
 
 const searchOptions = [
   {
@@ -14,7 +14,7 @@ const searchOptions = [
     placeholder: "Buscar por nombre",
     validation: [GenericValidators.defaultName],
     validation_desc: "Solo se permite letras en esta búsqueda",
-    min_length: 2
+    min_length: 2,
   },
   {
     label: "Descripcion",
@@ -22,16 +22,16 @@ const searchOptions = [
     placeholder: "Buscar por descripcion",
     validation: [GenericValidators.defaultDescription],
     validation_desc: "Solo se permite letras y números en esta búsqueda",
-    min_length: 2
-  }
-]
+    min_length: 2,
+  },
+];
 
 const menuItems: ListTableMenu[] = [
   {
     type: "link",
     id: "all",
     icon: icViewHeadline,
-    label: "Todos"
+    label: "Todos",
   },
   {
     type: "link",
@@ -40,8 +40,8 @@ const menuItems: ListTableMenu[] = [
     icon: icLabel,
     label: "Activo",
     classes: {
-      icon: "text-green"
-    }
+      icon: "text-green",
+    },
   },
   {
     type: "link",
@@ -50,56 +50,82 @@ const menuItems: ListTableMenu[] = [
     icon: icLabel,
     label: "Inactivo",
     classes: {
-      icon: "text-gray"
-    }
+      icon: "text-gray",
+    },
   },
-]
+];
 
 const tableColumns: TableColumn<Categoria>[] = [
   {
-    label: "Nombre",
+    label: "NOMBRE",
+    cssLabel: ["font-bold", "text-sm"],
     property: "nombre",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
     type: "text",
-    cssClasses: ['font-medium', 'w-10'],
+    sticky: true,
+    sort: true,
+    sortProperty: "nombre",
+    visible: true,
+    download: true,
   },
   {
-    label: "Descripcion",
+    label: "DESCRIPCIÓN",
+    cssLabel: ["font-bold", "text-sm"],
     property: "descripcion",
-    type: "textTruncate",
-    cssClasses: ['font-medium', 'w-10'],
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "descripcion",
+    visible: true,
+    download: true,
   },
   {
-    label: "F. Creación",
+    label: "F. DE CREACIÓN",
+    cssLabel: ["font-bold", "text-sm"],
     property: "fechacreacionauditoria",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
     type: "datetime",
-    cssClasses: ['font-medium', 'w-10'],
+    sticky: false,
+    sort: false,
+    visible: true,
+    download: true,
   },
   {
-    label: "Estado",
+    label: "ESTADO",
+    cssLabel: ["font-bold", "text-sm"],
     property: "estadoCategoria",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
     type: "badge",
-    cssClasses: ['font-medium', 'w-10'],
+    sticky: false,
+    sort: false,
+    visible: true,
+    download: true,
   },
   {
-    label: "Acciones",
-    property: 'menu',
-    type: "buttonGroup",
-    buttonItems: [
-      {
-        buttonLabel: "EDITAR",
-        buttonAction: "edit",
-        buttonCondition: null,
-        disable: false
-      },
-      {
-        buttonLabel: "ELIMINAR",
-        buttonAction: "remove",
-        buttonCondition: null,
-        disable: false
-      }
-    ],
-    cssClasses: ['font-medium', 'w-10']
-  }
+    label: "",
+    cssLabel: [],
+    property: "icEdit",
+    cssProperty: [],
+    type: "icon",
+    action: "edit",
+    sticky: false,
+    sort: false,
+    visible: true,
+    download: false,
+  },
+  {
+    label: "",
+    cssLabel: [],
+    property: "icDelete",
+    cssProperty: [],
+    type: "icon",
+    action: "remove",
+    sticky: false,
+    sort: false,
+    visible: true,
+    download: false,
+  },
 ];
 
 const filters = {
@@ -107,16 +133,16 @@ const filters = {
   textFilter: "",
   stateFilter: null,
   startDate: null,
-  endDate: null
-}
+  endDate: null,
+};
 
 const inputs = {
   numFilter: 0,
   textFilter: "",
   stateFilter: null,
   startDate: null,
-  endDate: null
-}
+  endDate: null,
+};
 
 export const componentSettings = {
   //ICONS
@@ -136,6 +162,12 @@ export const componentSettings = {
   searchOptions: searchOptions,
   filters_date_active: false,
   filters: filters,
-  datesFilterArray: ['Fecha de creación'],
-  columsFilter: tableColumns.map((column) => {return {label: column.label, property: column.property, type: column.type}})
-}
+  datesFilterArray: ["Fecha de creación"],
+  columsFilter: tableColumns.map((column) => {
+    return {
+      label: column.label,
+      property: column.property,
+      type: column.type,
+    };
+  }),
+};

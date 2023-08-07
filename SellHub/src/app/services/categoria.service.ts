@@ -9,6 +9,7 @@ import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { categoriaRequest } from "../requests/categoria/categoria.request";
 import { ApiResponse } from "../commons/response.interface";
+import { getIcon } from "@shared/functions/helpers";
 
 @Injectable({
   providedIn: "root",
@@ -44,6 +45,8 @@ export class CategoriaService {
               e.badgeColor = "text-gray bg-gray-light";
               break;
           }
+          e.icEdit = getIcon("icEdit", "Editar Categoria", true, "edit");
+          e.icDelete = getIcon("icDelete", "Eliminar Categoria", true, "remove");
         });
         return data;
       })
