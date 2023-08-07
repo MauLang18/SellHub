@@ -11,9 +11,12 @@
       </h2>
 
       <div class="flex items-center justify-end w-full">
-        <vex-search-box
+        <app-search-box-multiple
           [searchOptions]="component.searchOptions"
-          (search)="search($event)"></vex-search-box>
+          (search)="search($event)"
+          [currentValue]="
+            component.filters.textFilter
+          "></app-search-box-multiple>
         <div>
           <button
             mat-icon-button
@@ -44,14 +47,6 @@
           [items]="component.menuItems"></vex-list-table-menu>
 
         <div class="card h-full overflow-hidden flex-auto">
-          <!--<vex-list-table
-            (rowClick)="rowClick($event)"
-            [service]="_categoriaService"
-            [columns]="component.tableColumns"
-            [sortBy]="component.initialSort"
-            [sortDir]="component.initialSortDir"
-            [getInputs]="component.getInputs"
-            [buttonLabel]="component.buttonLabel"></vex-list-table>-->
           <app-list-table
             (rowClick)="rowClick($event)"
             [service]="_categoriaService"

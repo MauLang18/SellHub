@@ -20,7 +20,7 @@ import {
   MatFormFieldDefaultOptions,
 } from "@angular/material/form-field";
 import { DefaultService } from "@shared/services/default.service";
-import { TableColumn, TableFooter } from "../../interface/list-table.interface";
+import { TableColumn, TableFooter } from "../../../models/list-table.interface";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { NgxSpinnerModule, NgxSpinnerService } from "ngx-spinner";
