@@ -1,11 +1,11 @@
-import { stagger40ms } from "./../../../../@vex/animations/stagger.animation";
-import { fadeInRight400ms } from "./../../../../@vex/animations/fade-in-right.animation";
-import { scaleIn400ms } from "./../../../../@vex/animations/scale-in.animation";
+import { stagger40ms } from "../../../../../@vex/animations/stagger.animation";
+import { fadeInRight400ms } from "../../../../../@vex/animations/fade-in-right.animation";
+import { scaleIn400ms } from "../../../../../@vex/animations/scale-in.animation";
 import { Component, OnInit } from "@angular/core";
 import { CustomTitleService } from "@shared/services/custom-title.service";
-import { CategoriaService } from "src/app/services/categoria.service";
+import { CategoriaService } from "src/app/pages/categoria/services/categoria.service";
 import { componentSettings } from "./categoria-list-config";
-import { CategoriaApi } from "src/app/responses/categoria/categoria.responses";
+import { CategoriaApi } from "src/app/pages/categoria/models/categoria-responses.interface";
 import { DatesFilter } from "@shared/functions/actions";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { CategoriaManageComponent } from "../categoria-manage/categoria-manage.component";
@@ -33,9 +33,8 @@ export class CategoriaListComponent implements OnInit {
     this.component = componentSettings;
   }
 
-  setData(data: any = null) {
-    this.component.filters.stateFilter = data.value;
-    this.component.filters.menuOpen = false;
+  setData(value: number) {
+    this.component.filters.stateFilter = value;
     this.formatGetInputs();
   }
 

@@ -1,15 +1,15 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AlertService } from "@shared/services/alert.service";
-import { Categoria, CategoriaApi } from "../responses/categoria/categoria.responses";
 import { environment as env } from "src/environments/environment";
 import { endpoints } from "@shared/apis/endpoints";
-import { ListCategoriaRequest } from "../requests/categoria/list-categoria.request";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
-import { categoriaRequest } from "../requests/categoria/categoria.request";
-import { ApiResponse } from "../commons/response.interface";
+import { categoriaRequest } from "../models/categoria-request.interface";
+import { ApiResponse } from "../../../commons/response.interface";
 import { getIcon } from "@shared/functions/helpers";
+import { ListCategoriaRequest } from "../models/list-categoria-request.interface";
+import { Categoria, CategoriaApi } from "src/app/pages/categoria/models/categoria-responses.interface";
 
 @Injectable({
   providedIn: "root",
