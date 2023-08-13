@@ -10,7 +10,8 @@ export const endpoints = {
   REMOVE_CATEGORIA: 'Categoria/Remove/',
 
   //AUTH MODULE
-  GENERATE_TOKEN: 'Usuario/Generate/Token'
+  LOGIN: 'Auth/Login',
+  LOGIN_GOOGLE: 'Auth/LoginWithGoogle',
 }
 
 export const httpOptions = {

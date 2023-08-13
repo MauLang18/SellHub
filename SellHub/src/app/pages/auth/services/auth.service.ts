@@ -23,8 +23,9 @@ export class AuthService {
     );
   }
 
-  login(req: Login): Observable<ApiResponse> {
-    const requestUrl = `${env.api}${endpoints.GENERATE_TOKEN}`;
+  login(req: Login, authType: string): Observable<ApiResponse> {
+    localStorage.setItem("authType", "Interno");
+    const requestUrl = `${env.api}${endpoints.LOGIN}?authType=${authType}`;
 
     return this.http.post<ApiResponse>(requestUrl, req, httpOptions).pipe(
       map((resp: ApiResponse) => {
@@ -36,5 +37,33 @@ export class AuthService {
         return resp;
       })
     );
+  }
+
+  loginWithGoogle(
+    credential: string,
+    authType: string
+  ): Observable<ApiResponse> {
+    localStorage.setItem("authType", "Externo");
+    const resquestUrl = `${env.api}${endpoints.LOGIN_GOOGLE}?authType=${authType}`;
+
+    return this.http
+      .post<ApiResponse>(resquestUrl, JSON.stringify(credential), httpOptions)
+      .pipe(
+        map((resp: ApiResponse) => {
+          if (resp.isSuccess) {
+            localStorage.setItem("token", JSON.stringify(resp.data));
+            this.user.next(resp.data);
+          }
+
+          return resp;
+        })
+      );
+  }
+
+  logout(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("authType");
+    this.user.next(null);
+    window.location.reload();
   }
 }
