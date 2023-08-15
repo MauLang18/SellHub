@@ -21,6 +21,13 @@ const childrenRoutes: VexRoutes = [
     }
   },
   {
+    path: 'proveedores',
+    loadChildren: () => import('./pages/proveedor/proveedor.module').then(m => m.ProveedorModule),
+    data:{
+      containerEnabled: true
+    }
+  },
+  {
     path: '**',
     component: NotFoundComponent
   }

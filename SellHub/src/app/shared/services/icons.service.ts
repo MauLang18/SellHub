@@ -8,6 +8,13 @@ import icName from "@iconify/icons-ic/round-badge";
 import icDescription from "@iconify/icons-ic/round-description";
 import icVisibility from "@iconify/icons-ic/twotone-visibility";
 import icVisibilityOff from "@iconify/icons-ic/twotone-visibility-off";
+import icMail from "@iconify/icons-ic/twotone-group";
+import icViewHeadline from "@iconify/icons-ic/twotone-view-headline";
+import icLabel from "@iconify/icons-ic/twotone-label";
+import icCategory from "@iconify/icons-ic/twotone-category";
+import icCalendarMonth from "@iconify/icons-ic/twotone-calendar-today";
+import icProvider from "@iconify/icons-ic/twotone-group";
+import icDashboard from '@iconify/icons-ic/twotone-dashboard';
 
 @Injectable({
   providedIn: "root",
@@ -48,6 +55,34 @@ export class IconsService {
 
     if (icon == "icVisibilityOff") {
       return icVisibilityOff;
+    }
+
+    if (icon == "icMail") {
+      return icMail;
+    }
+
+    if (icon == "icViewHeadline") {
+      return icViewHeadline;
+    }
+
+    if (icon == "icLabel") {
+      return icLabel;
+    }
+
+    if (icon == "icCategory") {
+      return icCategory;
+    }
+
+    if (icon == "icCalendarMonth") {
+      return icCalendarMonth;
+    }
+
+    if (icon == "icProvider") {
+      return icProvider;
+    }
+
+    if (icon == "icDashboard") {
+      return icDashboard;
     }
   }
 }

@@ -1,10 +1,10 @@
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Component, OnInit, Inject } from "@angular/core";
-import icClose from "@iconify/icons-ic/twotone-close";
 import * as configs from "../../../../../static-data/configs";
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { AlertService } from "@shared/services/alert.service";
 import { CategoriaService } from "src/app/pages/categoria/services/categoria.service";
+import { IconsService } from "@shared/services/icons.service";
 
 @Component({
   selector: "vex-categoria-manage",
@@ -12,7 +12,7 @@ import { CategoriaService } from "src/app/pages/categoria/services/categoria.ser
   styleUrls: ["./categoria-manage.component.scss"],
 })
 export class CategoriaManageComponent implements OnInit {
-  icClose = icClose;
+  icClose = IconsService.prototype.getIcon("icClose");
   configs = configs;
 
   form: FormGroup;

@@ -1,9 +1,9 @@
-import { Categoria } from "src/app/pages/categoria/models/categoria-responses.interface";
-import { GenericValidators } from "@shared/validators/generic-validators";
 import { TableColumn } from "@shared/models/list-table.interface";
-import { SearchOptions } from "@shared/models/search-options.interface";
 import { MenuItems } from "@shared/models/menu-items.interface";
+import { SearchOptions } from "@shared/models/search-options.interface";
 import { IconsService } from "@shared/services/icons.service";
+import { GenericValidators } from "@shared/validators/generic-validators";
+import { ProveedorResponse } from "../../models/proveedor-response.interface";
 
 const searchOptions: SearchOptions[] = [
   {
@@ -15,11 +15,19 @@ const searchOptions: SearchOptions[] = [
     icon: "icName",
   },
   {
-    label: "Descripcion",
+    label: "Email",
     value: 2,
-    placeholder: "Buscar por Descripcion",
-    validation: [GenericValidators.defaultDescription],
-    validation_desc: "Solo se permite letras y números en esta búsqueda",
+    placeholder: "Buscar por Email",
+    validation: [GenericValidators.emailValidation],
+    validation_desc: "Solo se permite correos validos.",
+    icon: "icMail",
+  },
+  {
+    label: "N° Documento",
+    value: 3,
+    placeholder: "Buscar por N° Documento",
+    validation: [GenericValidators.document],
+    validation_desc: "Solo se permite documentos válidos",
     icon: "icDescription",
   },
 ];
@@ -53,7 +61,7 @@ const menuItems: MenuItems[] = [
   },
 ];
 
-const tableColumns: TableColumn<Categoria>[] = [
+const tableColumns: TableColumn<ProveedorResponse>[] = [
   {
     label: "NOMBRE",
     cssLabel: ["font-bold", "text-sm"],
@@ -67,21 +75,69 @@ const tableColumns: TableColumn<Categoria>[] = [
     download: true,
   },
   {
-    label: "DESCRIPCIÓN",
+    label: "EMAIL",
     cssLabel: ["font-bold", "text-sm"],
-    property: "descripcion",
+    property: "correo",
     cssProperty: ["font-semibold", "text-sm", "text-left"],
     type: "text",
     sticky: false,
     sort: true,
-    sortProperty: "descripcion",
+    sortProperty: "correo",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "TIPO DOCUMENTO",
+    cssLabel: ["font-bold", "text-sm"],
+    property: "tipoDocumento",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "tipoDocumento",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "N° DOCUMENTO",
+    cssLabel: ["font-bold", "text-sm"],
+    property: "numeroDocumento",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "numeroDocumento",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "DIRECCIÓN",
+    cssLabel: ["font-bold", "text-sm"],
+    property: "direccion",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "direccion",
+    visible: true,
+    download: true,
+  },
+  {
+    label: "TELEFONO",
+    cssLabel: ["font-bold", "text-sm"],
+    property: "telefono",
+    cssProperty: ["font-semibold", "text-sm", "text-left"],
+    type: "text",
+    sticky: false,
+    sort: true,
+    sortProperty: "telefono",
     visible: true,
     download: true,
   },
   {
     label: "F. DE CREACIÓN",
     cssLabel: ["font-bold", "text-sm"],
-    property: "fechacreacionauditoria",
+    property: "fechaCreacionAuditoria",
     cssProperty: ["font-semibold", "text-sm", "text-left"],
     type: "datetime",
     sticky: false,
@@ -92,7 +148,7 @@ const tableColumns: TableColumn<Categoria>[] = [
   {
     label: "ESTADO",
     cssLabel: ["font-bold", "text-sm"],
-    property: "estadoCategoria",
+    property: "estadoProveedor",
     cssProperty: ["font-semibold", "text-sm", "text-left"],
     type: "badge",
     sticky: false,
@@ -132,19 +188,21 @@ const filters = {
   stateFilter: null,
   startDate: null,
   endDate: null,
+  refresh: false,
 };
 
-const inputs = {
+const getInputs = {
   numFilter: 0,
   textFilter: "",
   stateFilter: null,
   startDate: null,
   endDate: null,
+  refresh: false,
 };
 
 export const componentSettings = {
   //ICONS
-  icCategory: IconsService.prototype.getIcon("icCategory"),
+  icProvider: IconsService.prototype.getIcon("icProvider"),
   icCalendarMonth: IconsService.prototype.getIcon("icCalendarMonth"),
   //LAYOUT SETTINGS
   menuOpen: false,
@@ -152,7 +210,7 @@ export const componentSettings = {
   tableColumns: tableColumns,
   initialSort: "Id",
   initialSortDir: "desc",
-  getInputs: inputs,
+  getInputs: getInputs,
   buttonLabel: "EDITAR",
   buttonLabel2: "ELIMINAR",
   //SEARCH FILTERS

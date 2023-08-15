@@ -5,12 +5,12 @@ import { Component, OnInit } from "@angular/core";
 import { CustomTitleService } from "@shared/services/custom-title.service";
 import { CategoriaService } from "src/app/pages/categoria/services/categoria.service";
 import { componentSettings } from "./categoria-list-config";
-import { CategoriaApi } from "src/app/pages/categoria/models/categoria-responses.interface";
 import { DatesFilter } from "@shared/functions/actions";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { CategoriaManageComponent } from "../categoria-manage/categoria-manage.component";
 import Swal from "sweetalert2";
 import { FiltersBox } from "@shared/models/search-options.interface";
+import { BaseApiResponse } from "@shared/models/base-api-response.interface";
 
 @Component({
   selector: "vex-categoria-list",
@@ -106,7 +106,7 @@ export class CategoriaListComponent implements OnInit {
     return false;
   }
 
-  CategoriaEdit(row: CategoriaApi) {
+  CategoriaEdit(row: BaseApiResponse) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = row;
 

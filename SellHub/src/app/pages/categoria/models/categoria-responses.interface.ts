@@ -6,8 +6,3 @@ export interface Categoria {
   estado: number
   estadoCategoria: string
 }
-
-export interface CategoriaApi {
-  data: any
-  totalRecords: number
-}

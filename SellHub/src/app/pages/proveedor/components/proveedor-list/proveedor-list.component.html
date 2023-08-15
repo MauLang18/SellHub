@@ -5,9 +5,9 @@
         class="headline text-primary-contrast m-o flex items-center w-full max-w-xxxl mr-6">
         <ic-icon
           @scaleIn
-          [icon]="component.icCategory"
+          [icon]="component.icProveider"
           class="hidden sm:block"></ic-icon>
-        <span @fadeInRight class="ml-4 block"> Gestión de Categorías</span>
+        <span @fadeInRight class="ml-4 block"> Gestión de Proveedores</span>
       </h2>
 
       <div class="flex items-center justify-end w-full">
@@ -17,7 +17,7 @@
           [currentValue]="
             component.filters.textFilter
           "></app-search-box-multiple>
-        <div>
+        <!--<div>
           <button
             mat-icon-button
             matTooltip="Filtro por rango de fechas"
@@ -29,7 +29,7 @@
             (click)="datesFilterOpen()">
             <mat-icon [icIcon]="component.icCalendarMonth"></mat-icon>
           </button>
-        </div>
+        </div>-->
       </div>
     </div>
   </div>
@@ -43,18 +43,18 @@
           buttonShow="true"
           buttonLabel="AGREGAR"
           (buttonClick)="openDialogRegister()"
-          (filterChange)="setData($event)"
+          (filterChange)="setMenu($event)"
           [items]="component.menuItems"></app-menu>
 
         <div class="card h-full overflow-hidden flex-auto">
           <app-list-table
             (rowClick)="rowClick($event)"
-            [service]="_categoriaService"
+            [service]="_proveedorService"
             [columns]="component.tableColumns"
             [sortBy]="component.initialSort"
             [sortDir]="component.initialSortDir"
             [getInputs]="component.getInputs">
-          </app-list-table>
+          </app-list-table>-
         </div>
       </mat-drawer-content>
     </mat-drawer-container>
