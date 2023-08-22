@@ -10,6 +10,7 @@ import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { ProveedorManageComponent } from "../proveedor-manage/proveedor-manage.component";
 import { ProveedorResponse } from "../../models/proveedor-response.interface";
 import { RowClick } from "@shared/models/row-click.interface";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "vex-proveedor-list",
@@ -110,11 +111,32 @@ export class ProveedorListComponent implements OnInit {
   }
 
   proveedorRemove(proveedorData: ProveedorResponse){
-
+    Swal.fire({
+      title: `¿Realemnte deseas eliminar el proveedor ${proveedorData.nombre}?`,
+      text: "Se borrará de forma permanente!",
+      icon: "warning",
+      showCancelButton: true,
+      focusCancel: true,
+      confirmButtonColor: "rgb(210,155,253)",
+      cancelButtonColor: "rgb(79,109,253)",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+      width: 430,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this._proveedorService
+          .proveedorRemove(proveedorData.pkTblPosProveedor)
+          .subscribe(() => this.setGetInputsProveedores(true));
+      }
+    });
   }
 
   setGetInputsProveedores(refresh: boolean) {
     this.component.filters.refresh = refresh;
     this.formatGetInputs();
+  }
+
+  get getDownloadUrl(){
+    return `Proveedor?Download=true`;
   }
 }

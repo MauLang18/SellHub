@@ -132,15 +132,10 @@ const filters = {
   stateFilter: null,
   startDate: null,
   endDate: null,
+  refresh: false,
 };
 
-const inputs = {
-  numFilter: 0,
-  textFilter: "",
-  stateFilter: null,
-  startDate: null,
-  endDate: null,
-};
+const getInputs: string = "";
 
 export const componentSettings = {
   //ICONS
@@ -152,7 +147,7 @@ export const componentSettings = {
   tableColumns: tableColumns,
   initialSort: "Id",
   initialSortDir: "desc",
-  getInputs: inputs,
+  getInputs: getInputs,
   buttonLabel: "EDITAR",
   buttonLabel2: "ELIMINAR",
   //SEARCH FILTERS
@@ -161,11 +156,5 @@ export const componentSettings = {
   filters_date_active: false,
   filters: filters,
   datesFilterArray: ["Fecha de creación"],
-  columsFilter: tableColumns.map((column) => {
-    return {
-      label: column.label,
-      property: column.property,
-      type: column.type,
-    };
-  }),
+  filename: "listado-de-categorias",
 };

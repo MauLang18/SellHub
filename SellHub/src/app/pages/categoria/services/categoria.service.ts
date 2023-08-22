@@ -18,20 +18,11 @@ export class CategoriaService {
   constructor(private _http: HttpClient, private _alert: AlertService) {}
 
   GetAll(size, sort, order, page, getInputs): Observable<BaseApiResponse> {
-    const requestUrl = `${env.api}${endpoints.LIST_CATEGORIAS}`;
-    const params: ListCategoriaRequest = new ListCategoriaRequest(
-      page + 1,
-      order,
-      sort,
-      size,
-      getInputs.numFilter,
-      getInputs.textFilter,
-      getInputs.stateFilter,
-      getInputs.startDate,
-      getInputs.endDate
-    );
+    const requestUrl = `${env.api}${
+      endpoints.LIST_CATEGORIAS
+    }?records=${size}&sort=${sort}&order=${order}&numPage=${page + 1}${getInputs}`;
 
-    return this._http.post<BaseApiResponse>(requestUrl, params).pipe(
+    return this._http.get<BaseApiResponse>(requestUrl).pipe(
       map((data: BaseApiResponse) => {
         data.data.items.forEach(function (e: any) {
           switch (e.estado) {
@@ -45,8 +36,8 @@ export class CategoriaService {
               e.badgeColor = "text-gray bg-gray-light";
               break;
           }
-          e.icEdit = getIcon("icEdit", "Editar Categoria", true, "edit");
-          e.icDelete = getIcon("icDelete", "Eliminar Categoria", true, "remove");
+          e.icEdit = getIcon("icEdit", "Editar Categoria", true,);
+          e.icDelete = getIcon("icDelete", "Eliminar Categoria", true);
         });
         return data;
       })

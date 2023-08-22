@@ -8,15 +8,19 @@ import {
 } from "@shared/models/base-api-response.interface";
 import { endpoints } from "@shared/apis/endpoints";
 import { map } from "rxjs/operators";
-import { ProveedorById, ProveedorResponse } from "../models/proveedor-response.interface";
+import {
+  ProveedorById,
+  ProveedorResponse,
+} from "../models/proveedor-response.interface";
 import { getIcon } from "@shared/functions/helpers";
 import { ProveedorRequest } from "../models/proveedor-request.interface";
+import { AlertService } from "@shared/services/alert.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class ProveedorService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private _alert: AlertService) {}
 
   GetAll(
     size: string,
@@ -27,7 +31,7 @@ export class ProveedorService {
   ): Observable<BaseApiResponse> {
     const requestUrl = `${env.api}${
       endpoints.LIST_PROVEEDORES
-    }?records=${size}&sort=${sort}&order=${order}&page=${page + 1}${getInputs}`;
+    }?records=${size}&sort=${sort}&order=${order}&numPage=${page + 1}${getInputs}`;
 
     return this._http.get<BaseApiResponse>(requestUrl).pipe(
       map((resp) => {
@@ -43,12 +47,11 @@ export class ProveedorService {
               prov.badgeColor = "text-gray bg-gray-light";
               break;
           }
-          prov.icEdit = getIcon("icEdit", "Editar Proveedor", true, "edit");
+          prov.icEdit = getIcon("icEdit", "Editar Proveedor", true);
           prov.icDelete = getIcon(
             "icDelete",
             "Eliminar Proveedor",
-            true,
-            "remove"
+            true
           );
         });
         return resp;
@@ -56,14 +59,14 @@ export class ProveedorService {
     );
   }
 
-  proveedorById(pkTblPosProveedor: number): Observable<ProveedorById>{
+  proveedorById(pkTblPosProveedor: number): Observable<ProveedorById> {
     const requestUrl = `${env.api}${endpoints.PROVEEDOR_BY_ID}${pkTblPosProveedor}`;
 
     return this._http.get(requestUrl).pipe(
       map((resp: BaseResponse) => {
         return resp.data;
       })
-    )
+    );
   }
 
   proveedorRegister(proveedor: ProveedorRequest): Observable<BaseResponse> {
@@ -83,5 +86,17 @@ export class ProveedorService {
     const requestUrl = `${env.api}${endpoints.EDIT_PROVEEDOR}${proveedorId}`;
 
     return this._http.put<BaseResponse>(requestUrl, proveedor);
+  }
+
+  proveedorRemove(proveedorId: number): Observable<void> {
+    const requestUrl = `${env.api}${endpoints.REMOVE_PROVEEDOR}${proveedorId}`;
+
+    return this._http.put<BaseResponse>(requestUrl, "").pipe(
+      map((resp: BaseResponse) => {
+        if(resp.isSuccess){
+          this._alert.success("Excelente", resp.message);
+        }
+      })
+    );
   }
 }

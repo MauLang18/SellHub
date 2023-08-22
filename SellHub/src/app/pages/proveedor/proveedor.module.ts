@@ -8,6 +8,7 @@ import { SharedModule } from '@shared/shared.module';
 import { ProveedorRoutingModule } from './proveedor-routing.module';
 import { ProveedorListComponent } from './components/proveedor-list/proveedor-list.component';
 import { ProveedorManageComponent } from './components/proveedor-manage/proveedor-manage.component';
+import { ExportExcelComponent } from '@shared/components/reusables/export-excel/export-excel.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ProveedorManageComponent } from './components/proveedor-manage/proveedo
     SharedModule,
     ListTableComponent,
     SearchBoxMultipleComponent,
-    MenuComponent
+    MenuComponent,
+    ExportExcelComponent
   ]
 })
 export class ProveedorModule { }

@@ -15,6 +15,7 @@ import icCategory from "@iconify/icons-ic/twotone-category";
 import icCalendarMonth from "@iconify/icons-ic/twotone-calendar-today";
 import icProvider from "@iconify/icons-ic/twotone-group";
 import icDashboard from '@iconify/icons-ic/twotone-dashboard';
+import icCloudDownload from '@iconify/icons-ic/twotone-cloud-download';
 
 @Injectable({
   providedIn: "root",
@@ -83,6 +84,10 @@ export class IconsService {
 
     if (icon == "icDashboard") {
       return icDashboard;
+    }
+
+    if (icon == "icCloudDownload"){
+      return icCloudDownload;
     }
   }
 }

@@ -8,6 +8,7 @@ import { SearchBoxMultipleComponent } from '@shared/components/reusables/search-
 import { MenuComponent } from '@shared/components/reusables/menu/menu.component';
 import { CategoriaListComponent } from './components/categoria-list/categoria-list.component';
 import { CategoriaManageComponent } from './components/categoria-manage/categoria-manage.component';
+import { ExportExcelComponent } from '@shared/components/reusables/export-excel/export-excel.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { CategoriaManageComponent } from './components/categoria-manage/categori
     SharedModule,
     ListTableComponent,
     SearchBoxMultipleComponent,
-    MenuComponent
+    MenuComponent,
+    ExportExcelComponent
   ]
 })
 export class CategoriaModule { }

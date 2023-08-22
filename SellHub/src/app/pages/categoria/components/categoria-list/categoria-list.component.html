@@ -30,6 +30,12 @@
             <mat-icon [icIcon]="component.icCalendarMonth"></mat-icon>
           </button>
         </div>
+        <div>
+          <app-export-excel
+            [url]="getDownloadUrl"
+            [getInputs]="component.getInputs"
+            [filename]="component.filename"></app-export-excel>
+        </div>
       </div>
     </div>
   </div>
